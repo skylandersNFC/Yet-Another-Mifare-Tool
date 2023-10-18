@@ -5,6 +5,8 @@ namespace YetAnotherMifareTool
         public Form1()
         {
             InitializeComponent();
+
+            Text += $" v{ThisAssembly.Git.SemVer.Major}.{ThisAssembly.Git.SemVer.Minor}.{ThisAssembly.Git.SemVer.Patch}{ThisAssembly.Git.SemVer.DashLabel}";
         }
     }
 }
