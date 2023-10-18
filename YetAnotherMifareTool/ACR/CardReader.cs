@@ -37,7 +37,7 @@ namespace YetAnotherMifareTool.ACR
             byte[] uid = null;
             byte loop = 0;
 
-            Log(this, string.Format("Getting Uid..."));
+            Log(this, "Getting Uid...");
 
             do
             {
@@ -55,9 +55,9 @@ namespace YetAnotherMifareTool.ACR
             while (uid == null && loop < 10);
 
             if (uid != null)
-                Log(this, string.Format("Uid: " + BitConverter.ToString(uid).Replace("-", "")));
+                Log(this, $"Uid: {BitConverter.ToString(uid).Replace("-", "")}");
             else
-                Log(this, string.Format("Error: Uid is null!"));
+                Log(this, "Error: Uid is null!");
 
             return uid;
         }
@@ -75,7 +75,7 @@ namespace YetAnotherMifareTool.ACR
 
         public async Task<byte[]> Read(byte[] keys)
         {
-            Log(this, string.Format("Reading..."));
+            Log(this, "Reading...");
 
             byte[] input = new byte[1024];
 
@@ -96,7 +96,7 @@ namespace YetAnotherMifareTool.ACR
             }
 
             if (input != null)
-                Log(this, string.Format("Done reading."));
+                Log(this, "Done reading.");
 
             return input;
         }
@@ -105,9 +105,11 @@ namespace YetAnotherMifareTool.ACR
         {
             byte[] sectorBytes = new byte[BLOCK_SIZE * BLOCKS_PER_SECTOR];
 
+            Log(this, $"Reading sector {sector}...");
+
             if (await mCard.Login(sector, key, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA))
             {
-                Log(this, string.Format("Authenticate successful."));
+                Log(this, $"Sector {sector} authenticated successfully.");
 
                 for (int block = 0; block < BLOCKS_PER_SECTOR; block++)
                 {
@@ -115,11 +117,11 @@ namespace YetAnotherMifareTool.ACR
                     if (res.Item1)
                     {
                         Buffer.BlockCopy(res.Item2, 0, sectorBytes, block * BLOCK_SIZE, BLOCK_SIZE);
-                        Log(this, string.Format("Read sector {0:X2}, block {1:X2}", sector, block));
+                        //Log(this, $"Read sector {sector}, block {block} successfully.");
                     }
                     else
                     {
-                        Log(this, string.Format("Error in sector {0:X2}, block {1:X2}", sector, block));
+                        Log(this, $"Error in sector {sector}, block {block}!");
                         return null;
                     }
                 }
@@ -127,18 +129,20 @@ namespace YetAnotherMifareTool.ACR
                 // copy key to dump
                 Buffer.BlockCopy(key, 0, sectorBytes, sectorBytes.Length - BLOCK_SIZE, key.Length);
 
-                Log(this, string.Format("Read sector {0:X2}", sector));
+                Log(this, $"Sector {sector} read successfully.");
             }
             else
             {
-                Log(this, string.Format("Error while authenticating!"));
+                Log(this, $"Error while authenticating sector {sector}!");
             }
 
             return sectorBytes;
         }
 
-        public async Task<byte[]> ReadBlockZero()
+        public async Task<byte[]> ReadManufacturerBlock()
         {
+            Log(this, "Reading manufacturer block...");
+
             if (await mCard.Login(0, Constants.SECTOR_ZERO_KEY, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA) ||
                 await mCard.Login(0, Constants.FACTORY_KEY, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA))
             {
@@ -148,24 +152,26 @@ namespace YetAnotherMifareTool.ACR
                     byte[] blockBytes = new byte[BLOCK_SIZE];
                     Buffer.BlockCopy(res.Item2, 0, blockBytes, 0, blockBytes.Length);
 
+                    Log(this, "Manufacturer block read successfully.");
+
                     return blockBytes;
                 }
                 else
                 {
-                    Log(this, string.Format("Error in sector {0:X2}, block {1:X2}", 0, 0));
+                    Log(this, "Error manufacturer block!");
                 }
             }
             else
             {
-                Log(this, string.Format("Error while authenticating!"));
+                Log(this, $"Error while authenticating sector 0x00!");
             }
 
             return null;
         }
 
-        public async Task<bool> Write(byte[] data, bool writeBlockZero)
+        public async Task<bool> Write(byte[] data, bool writeManufacturerBlock)
         {
-            Log(this, string.Format("Writing..."));
+            Log(this, "Writing...");
 
             bool success = false;
 
@@ -178,7 +184,7 @@ namespace YetAnotherMifareTool.ACR
                 var buffer = new byte[BLOCK_SIZE * BLOCKS_PER_SECTOR];
                 Buffer.BlockCopy(data, sector * buffer.Length, buffer, 0, buffer.Length);
 
-                success = await WriteSector(sector, key, buffer, writeBlockZero);
+                success = await WriteSector(sector, key, buffer, writeManufacturerBlock);
                 if (!success)
                 {
                     break;
@@ -186,19 +192,19 @@ namespace YetAnotherMifareTool.ACR
             }
 
             if (success)
-                Log(this, string.Format("Done writing."));
+                Log(this, "Done writing.");
 
             return success;
         }
 
-        private async Task<bool> WriteSector(int sector, byte[] key, byte[] data, bool writeBlockZero)
+        private async Task<bool> WriteSector(int sector, byte[] key, byte[] data, bool writeManufacturerBlock)
         {
             if (await mCard.Login(sector, key, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA) ||
                 await mCard.Login(sector, Constants.FACTORY_KEY, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA))
             {
-                Log(this, string.Format("Authenticate successful."));
+                Log(this, $"Sector {sector} authenticated successfully.");
 
-                byte startBlock = sector == 0 ? (writeBlockZero ? (byte)0 : (byte)1) : (byte)0;
+                byte startBlock = sector == 0 ? (writeManufacturerBlock ? (byte)0 : (byte)1) : (byte)0;
                 for (byte block = startBlock; block < BLOCKS_PER_SECTOR; block++)
                 {
                     byte[] buffer = new byte[BLOCK_SIZE];
@@ -207,7 +213,7 @@ namespace YetAnotherMifareTool.ACR
                     var res = await mCard.Write(sector, block, buffer);
                     if (res)
                     {
-                        Log(this, string.Format("Write sector {0:X2}, block {1:X2}", sector, block));
+                        Log(this, $"Sector {sector}, block {block} written successfully.");
                     }
                     else
                     if (block == 3)
@@ -216,17 +222,17 @@ namespace YetAnotherMifareTool.ACR
                     }
                     else
                     {
-                        Log(this, string.Format("Error in sector {0:X2}, block {1:X2}", sector, block));
+                        Log(this, $"Error in sector {sector}, block {block}!");
                         return false;
                     }
                 }
-                Log(this, string.Format("Write sector {0:X2}", sector));
+                Log(this, $"Sector {sector} written successfully.");
 
                 return true;
             }
             else
             {
-                Log(this, string.Format("Error while authenticating!"));
+                Log(this, $"Error while authenticating sector {sector}!");
                 return false;
             }
         }
@@ -251,7 +257,7 @@ namespace YetAnotherMifareTool.ACR
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                Debug.WriteLine("RetCode: " + retCode);
+                Debug.WriteLine($"RetCode: {retCode}");
 
                 return null;
             }

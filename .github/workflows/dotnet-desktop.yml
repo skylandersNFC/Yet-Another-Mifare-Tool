@@ -29,12 +29,10 @@ jobs:
     # Add  MSBuild to the PATH
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
-      with:
-        msbuild-architecture: x64
 
     # Publish the application
     - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /t:Publish /p:PublishDir=${{github.workspace}} /p:Configuration=Release /p:TargetFramework=net6.0-windows /p:RuntimeIdentifier=win-x64 /p:PublishSingleFile=true /p:SelfContained=false
+      run: msbuild $env:Solution_Name /t:Restore /t:Publish /p:PublishDir=${{github.workspace}} /p:Configuration=Release /p:TargetFramework=net6.0-windows /p:RuntimeIdentifier=win-x86 /p:PublishSingleFile=true /p:SelfContained=false
 
     # Upload artifacts
     - name: Upload build artifacts

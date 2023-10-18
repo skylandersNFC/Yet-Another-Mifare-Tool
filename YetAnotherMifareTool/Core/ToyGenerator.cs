@@ -14,11 +14,11 @@ namespace YetAnotherMifareTool.Core
 	        };
         }
 
-        public static byte[] Generate(byte[] block0, uint id, uint idExt)
+        public static byte[] Generate(byte[] manufacturerBlock, uint id, uint idExt)
         {
             byte[] data = new byte[1024];
 
-            Buffer.BlockCopy(block0, 0, data, 0, block0.Length);
+            Buffer.BlockCopy(manufacturerBlock, 0, data, 0, manufacturerBlock.Length);
              
 	        byte[] data_id = BitConverter.GetBytes(id);
             byte[] data_idExt = BitConverter.GetBytes(idExt);

@@ -23,8 +23,8 @@
             btn_dumpWrite = new Button();
             btn_dumpSelect = new Button();
             tb_dumpSelect = new TextBox();
-            label1 = new Label();
-            cb_writeBlockZero = new CheckBox();
+            l_writeManufacturerBlock = new Label();
+            cb_writeManufacturerBlock = new CheckBox();
             tabControl = new TabControl();
             tabWrite.SuspendLayout();
             tabControl.SuspendLayout();
@@ -37,8 +37,8 @@
             tabWrite.Controls.Add(btn_dumpWrite);
             tabWrite.Controls.Add(btn_dumpSelect);
             tabWrite.Controls.Add(tb_dumpSelect);
-            tabWrite.Controls.Add(label1);
-            tabWrite.Controls.Add(cb_writeBlockZero);
+            tabWrite.Controls.Add(l_writeManufacturerBlock);
+            tabWrite.Controls.Add(cb_writeManufacturerBlock);
             tabWrite.Location = new Point(4, 29);
             tabWrite.Name = "tabWrite";
             tabWrite.Padding = new Padding(3);
@@ -102,25 +102,26 @@
             tb_dumpSelect.TabIndex = 0;
             tb_dumpSelect.TabStop = false;
             // 
-            // label1
+            // l_writeManufacturerBlock
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(331, 70);
-            label1.Name = "label1";
-            label1.Size = new Size(261, 20);
-            label1.TabIndex = 1;
-            label1.Text = "Working only with CUID/Gen2 tags!";
+            l_writeManufacturerBlock.AutoSize = true;
+            l_writeManufacturerBlock.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            l_writeManufacturerBlock.Location = new Point(331, 70);
+            l_writeManufacturerBlock.Name = "l_writeManufacturerBlock";
+            l_writeManufacturerBlock.Size = new Size(261, 20);
+            l_writeManufacturerBlock.TabIndex = 1;
+            l_writeManufacturerBlock.Text = "Working only with CUID/Gen2 tags!";
+            l_writeManufacturerBlock.Click += l_writeManufacturerBlock_Click;
             // 
-            // cb_writeBlockZero
+            // cb_writeManufacturerBlock
             // 
-            cb_writeBlockZero.AutoSize = true;
-            cb_writeBlockZero.Location = new Point(17, 69);
-            cb_writeBlockZero.Name = "cb_writeBlockZero";
-            cb_writeBlockZero.Size = new Size(320, 24);
-            cb_writeBlockZero.TabIndex = 2;
-            cb_writeBlockZero.Text = "Enable writing manufacturer block (Block 0)";
-            cb_writeBlockZero.UseVisualStyleBackColor = true;
+            cb_writeManufacturerBlock.AutoSize = true;
+            cb_writeManufacturerBlock.Location = new Point(17, 69);
+            cb_writeManufacturerBlock.Name = "cb_writeManufacturerBlock";
+            cb_writeManufacturerBlock.Size = new Size(320, 24);
+            cb_writeManufacturerBlock.TabIndex = 2;
+            cb_writeManufacturerBlock.Text = "Enable writing manufacturer block (Block 0)";
+            cb_writeManufacturerBlock.UseVisualStyleBackColor = true;
             // 
             // tabControl
             // 
@@ -144,6 +145,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Yet Another Mifare Tool";
+            FormClosing += Form1_FormClosing;
             tabWrite.ResumeLayout(false);
             tabWrite.PerformLayout();
             tabControl.ResumeLayout(false);
@@ -154,9 +156,9 @@
 
         private TabPage tabWrite;
         private TabControl tabControl;
-        private CheckBox cb_writeBlockZero;
+        private CheckBox cb_writeManufacturerBlock;
         private TextBox tb_dumpSelect;
-        private Label label1;
+        private Label l_writeManufacturerBlock;
         private Button btn_dumpSelect;
         private TextBox tb_logWrite;
         private Button btn_dumpWrite;

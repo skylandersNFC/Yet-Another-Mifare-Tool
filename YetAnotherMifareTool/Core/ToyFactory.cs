@@ -2,47 +2,45 @@
 
 namespace YetAnotherMifareTool.Core
 {
-    public class ToyFactory
+    public class ToyFactory : IDisposable
     {
+        private CardReader _cardReader;
+
         public event EventHandler<string> OnLogging;
 
-        public async Task<string> GetFirmware()
+        public ToyFactory()
         {
-            var cardReader = new CardReader();
+            _cardReader = new CardReader();
 
-            var firmware = await cardReader.GetFirmware();
-
-            cardReader.Dispose();
-
-            return firmware;
-        }
-
-        public async Task<byte[]> GetBlockZero()
-        {
-            var cardReader = new CardReader();
-
-            var blockZero = await cardReader.ReadBlockZero();
-
-            cardReader.Dispose();
-
-            return blockZero;
-        }
-
-        public async Task Write(byte[] input, bool writeBlockZero)
-        {
-            var cardReader = new CardReader();
-
-            cardReader.OnLogging += (sender, e) =>
+            _cardReader.OnLogging += (sender, e) =>
             {
                 if (OnLogging != null && e != null)
                 {
                     OnLogging(sender, e);
                 }
             };
+        }
 
-            await cardReader.Write(input, writeBlockZero);
+        public async Task<byte[]> GetUid()
+        {
+            var uid = await _cardReader.GetUid();
+            return uid;
+        }
 
-            cardReader.Dispose();
+        public async Task<byte[]> ReadManufacturerBlock()
+        {
+            var manufacturerBlock = await _cardReader.ReadManufacturerBlock();
+            return manufacturerBlock;
+        }
+
+        public async Task Write(byte[] input, bool writeManufacturerBlock)
+        {
+            await _cardReader.Write(input, writeManufacturerBlock);
+        }
+
+        public void Dispose()
+        {
+            _cardReader?.Dispose();
         }
     }
 }

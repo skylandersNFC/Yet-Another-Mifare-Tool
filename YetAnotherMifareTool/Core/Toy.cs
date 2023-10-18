@@ -10,7 +10,7 @@ namespace YetAnotherMifareTool.Core
         public bool IsDataValid { get { return Data != null && Data.Length == 1024; } }
         public uint Id { get { return getId(); } }
         public uint IdExt { get { return getIdExt(); } }
-        public byte[] BlockZero { get { return getBlockZero(); } }
+        public byte[] ManufacturerBlock { get { return getManufacturerBlock(); } }
 
         public Toy(string filePath)
         {
@@ -47,15 +47,15 @@ namespace YetAnotherMifareTool.Core
             return BitConverter.ToUInt16(id, 0);
         }
 
-        private byte[] getBlockZero()
+        private byte[] getManufacturerBlock()
         {
             if (this.Data == null)
                 return new byte[Constants.BLOCK_SIZE];
 
-            byte[] blockZero = new byte[Constants.BLOCK_SIZE];
-            Buffer.BlockCopy(this.Data, 0, blockZero, 0, blockZero.Length);
+            byte[] manufacturerBlock = new byte[Constants.BLOCK_SIZE];
+            Buffer.BlockCopy(this.Data, 0, manufacturerBlock, 0, manufacturerBlock.Length);
 
-            return blockZero;
+            return manufacturerBlock;
         }
 
         private string getName()

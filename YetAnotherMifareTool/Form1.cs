@@ -50,6 +50,11 @@ namespace YetAnotherMifareTool
             }
         }
 
+        private void l_writeManufacturerBlock_Click(object sender, EventArgs e)
+        {
+            cb_writeManufacturerBlock.Checked = !cb_writeManufacturerBlock.Checked;
+        }
+
         private void btn_dumpWrite_Click(object sender, EventArgs e)
         {
             if (_toyToWrite == null)
@@ -61,39 +66,36 @@ namespace YetAnotherMifareTool
             {
                 Task.Run(async () =>
                 {
-                    var firmware = await _toyFactory.GetFirmware();
-                    if (string.IsNullOrEmpty(firmware))
+                    var uid = await _toyFactory.GetUid();
+                    if (uid == null)
                     {
-                        Log("CardReader not found!");
-                        return;
-                    }
-                    else
-                    {
-                        Log(firmware);
-                    }
-
-                    var blockZero = await _toyFactory.GetBlockZero();
-                    if (blockZero == null)
-                    {
-                        Log("Failed to read block zero!");
+                        Log("No Tag found!");
                         return;
                     }
 
-                    var blockZeroEquals = _toyToWrite.BlockZero.SequenceEqual(blockZero);
-                    var writeBlockZero = cb_writeBlockZero.Checked;
-
-                    if (!blockZeroEquals && !writeBlockZero)
+                    var manufacturerBlock = await _toyFactory.ReadManufacturerBlock();
+                    if (manufacturerBlock == null)
                     {
-                        _toyToWrite.Data = ToyGenerator.Generate(blockZero, _toyToWrite.Id, _toyToWrite.IdExt);
+                        Log("Failed to read manufacturer block!");
+                        return;
+                    }
+
+                    var manufacturerBlockEquals = _toyToWrite.ManufacturerBlock.SequenceEqual(manufacturerBlock);
+                    var writeManufacturerBlock = cb_writeManufacturerBlock.Checked;
+                    byte[] data;
+
+                    if (!manufacturerBlockEquals && !writeManufacturerBlock)
+                    {
+                        data = ToyGenerator.Generate(manufacturerBlock, _toyToWrite.Id, _toyToWrite.IdExt);
                     }
                     else
                     {
-                        _toyToWrite.Data = _toyToWrite.Data
+                        data = _toyToWrite.Data
                             .WithCalculatingKeys()
                             .WithUnlockedAccessConditions();
                     }
 
-                    await _toyFactory.Write(_toyToWrite.Data, !blockZeroEquals && writeBlockZero);
+                    await _toyFactory.Write(data, !manufacturerBlockEquals && writeManufacturerBlock);
 
                 }).ConfigureAwait(false);
             }
@@ -116,7 +118,13 @@ namespace YetAnotherMifareTool
             else
             {
                 tb_logWrite.AppendText($"{DateTime.Now} - {message}{Environment.NewLine}");
-            }            
+            }
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _toyFactory?.Dispose();
+        }
+
     }
 }
