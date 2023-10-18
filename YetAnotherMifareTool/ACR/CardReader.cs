@@ -169,7 +169,7 @@ namespace YetAnotherMifareTool.ACR
             return null;
         }
 
-        public async Task<bool> Write(byte[] data, bool writeManufacturerBlock)
+        public async Task<bool> Write(byte[][] keys, byte[] data, bool writeManufacturerBlock)
         {
             Log(this, "Writing...");
 
@@ -177,18 +177,22 @@ namespace YetAnotherMifareTool.ACR
 
             for (byte sector = 0; sector < 16; sector++)
             {
-                int keyIndex = (BLOCK_SIZE * (BLOCKS_PER_SECTOR - 1)) + (sector * BLOCK_SIZE * BLOCKS_PER_SECTOR);
-                var key = new byte[6];
-                Buffer.BlockCopy(data, keyIndex, key, 0, key.Length);
-
                 var buffer = new byte[BLOCK_SIZE * BLOCKS_PER_SECTOR];
                 Buffer.BlockCopy(data, sector * buffer.Length, buffer, 0, buffer.Length);
 
-                success = await WriteSector(sector, key, buffer, writeManufacturerBlock);
+                success = await WriteSector(sector, keys[sector], buffer);
                 if (!success)
                 {
                     break;
                 }
+            }
+
+            if (success && writeManufacturerBlock)
+            {
+                var buffer = new byte[BLOCK_SIZE];
+                Buffer.BlockCopy(data, 0, buffer, 0, buffer.Length);
+
+                success = await WriteManufacturerBlock(keys[0], buffer);
             }
 
             if (success)
@@ -197,14 +201,14 @@ namespace YetAnotherMifareTool.ACR
             return success;
         }
 
-        private async Task<bool> WriteSector(int sector, byte[] key, byte[] data, bool writeManufacturerBlock)
+        private async Task<bool> WriteSector(int sector, byte[] key, byte[] data)
         {
             if (await mCard.Login(sector, key, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA) ||
                 await mCard.Login(sector, Constants.FACTORY_KEY, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA))
             {
                 Log(this, $"Sector {sector} authenticated successfully.");
 
-                byte startBlock = sector == 0 ? (writeManufacturerBlock ? (byte)0 : (byte)1) : (byte)0;
+                byte startBlock = sector == 0 ? (byte)1 : (byte)0;
                 for (byte block = startBlock; block < BLOCKS_PER_SECTOR; block++)
                 {
                     byte[] buffer = new byte[BLOCK_SIZE];
@@ -233,6 +237,33 @@ namespace YetAnotherMifareTool.ACR
             else
             {
                 Log(this, $"Error while authenticating sector {sector}!");
+                return false;
+            }
+        }
+
+        private async Task<bool> WriteManufacturerBlock(byte[] key, byte[] data)
+        {
+            if (await mCard.Login(0, key, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA) ||
+                await mCard.Login(0, Constants.FACTORY_KEY, GeneralAuthenticateCommand.GeneralAuthenticateKeyType.MifareKeyA))
+            {
+                Log(this, "Manufacturer block authenticated successfully.");
+
+                var res = await mCard.Write(0, 0, data);
+                if (res)
+                {
+                    Log(this, $"Manufacturer block written successfully.");
+                }
+                else
+                {
+                    Log(this, $"Error in manufacturer block!");
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                Log(this, $"Error while authenticating manufacturer block!");
                 return false;
             }
         }

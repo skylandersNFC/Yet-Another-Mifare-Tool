@@ -33,9 +33,9 @@ namespace YetAnotherMifareTool.Core
             return manufacturerBlock;
         }
 
-        public async Task Write(byte[] input, bool writeManufacturerBlock)
+        public async Task Write(byte[][] keys, byte[] data, bool writeManufacturerBlock)
         {
-            await _cardReader.Write(input, writeManufacturerBlock);
+            await _cardReader.Write(keys, data, writeManufacturerBlock);
         }
 
         public void Dispose()

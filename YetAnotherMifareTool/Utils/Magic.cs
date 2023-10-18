@@ -13,7 +13,17 @@
             return key;
         }
 
-        public static byte[] CalculateKeys(byte[] data)
+        public static byte[][] CalculateKeys(byte[] uid)
+        {
+            var keys = new byte[16][];
+            for (int sector = 0; sector < keys.Length; sector++)
+            {
+                keys[sector] = DoTheMagic(uid, (byte)sector);
+            }
+            return keys;
+        }
+
+        public static byte[] AddRecalculatedKeys(byte[] data)
         {
             byte[] uid = new byte[4];
             Buffer.BlockCopy(data, 0, uid, 0, uid.Length);

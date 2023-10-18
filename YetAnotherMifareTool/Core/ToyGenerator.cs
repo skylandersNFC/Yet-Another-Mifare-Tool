@@ -31,7 +31,7 @@ namespace YetAnotherMifareTool.Core
 	        data[31] = checksumType[1];
 
             data = data
-                .WithCalculatingKeys()
+                .WithRecalculatedKeys()
                 .WithUnlockedAccessConditions();
 
             return data;

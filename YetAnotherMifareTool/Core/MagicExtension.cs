@@ -11,9 +11,9 @@ namespace YetAnotherMifareTool.Core
                 : data;
         }
 
-        public static byte[] WithCalculatingKeys(this byte[] data)
+        public static byte[] WithRecalculatedKeys(this byte[] data)
         {
-            return Magic.CalculateKeys(data);
+            return Magic.AddRecalculatedKeys(data);
         }
 
         public static byte[] WithUnlockedAccessConditions(this byte[] data)

@@ -1,4 +1,5 @@
 using YetAnotherMifareTool.Core;
+using YetAnotherMifareTool.Utils;
 
 namespace YetAnotherMifareTool
 {
@@ -91,11 +92,13 @@ namespace YetAnotherMifareTool
                     else
                     {
                         data = _toyToWrite.Data
-                            .WithCalculatingKeys()
+                            .WithRecalculatedKeys()
                             .WithUnlockedAccessConditions();
                     }
 
-                    await _toyFactory.Write(data, !manufacturerBlockEquals && writeManufacturerBlock);
+                    var keys = Magic.CalculateKeys(uid);
+
+                    await _toyFactory.Write(keys, data, writeManufacturerBlock);
 
                 }).ConfigureAwait(false);
             }
