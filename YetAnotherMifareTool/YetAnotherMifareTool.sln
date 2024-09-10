@@ -5,6 +5,10 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YetAnotherMifareTool", "YetAnotherMifareTool.csproj", "{5898C83B-C030-4B88-9025-4005DDA05442}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibnfcSharp", "..\LibnfcSharp\LibnfcSharp\LibnfcSharp.csproj", "{164F17EE-8AF2-4A10-B9CC-73C6D3D7AD0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibnfcSharp.Mifare", "..\LibnfcSharp\LibnfcSharp.Mifare\LibnfcSharp.Mifare.csproj", "{CD0E23AE-A6E9-4187-A5E8-C6E01BF2F151}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5898C83B-C030-4B88-9025-4005DDA05442}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5898C83B-C030-4B88-9025-4005DDA05442}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5898C83B-C030-4B88-9025-4005DDA05442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164F17EE-8AF2-4A10-B9CC-73C6D3D7AD0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164F17EE-8AF2-4A10-B9CC-73C6D3D7AD0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164F17EE-8AF2-4A10-B9CC-73C6D3D7AD0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164F17EE-8AF2-4A10-B9CC-73C6D3D7AD0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD0E23AE-A6E9-4187-A5E8-C6E01BF2F151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD0E23AE-A6E9-4187-A5E8-C6E01BF2F151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD0E23AE-A6E9-4187-A5E8-C6E01BF2F151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD0E23AE-A6E9-4187-A5E8-C6E01BF2F151}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
