@@ -1,4 +1,7 @@
-﻿namespace YetAnotherMifareTool.ACR
+﻿using System;
+using System.IO;
+
+namespace YetAnotherMifareTool.ACR
 {
     public class ApduCommand
     {

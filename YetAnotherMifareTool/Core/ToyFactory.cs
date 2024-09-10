@@ -1,4 +1,6 @@
-﻿using YetAnotherMifareTool.ACR;
+﻿using System;
+using System.Threading.Tasks;
+using YetAnotherMifareTool.ACR;
 
 namespace YetAnotherMifareTool.Core
 {

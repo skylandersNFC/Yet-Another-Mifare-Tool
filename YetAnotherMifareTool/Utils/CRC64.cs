@@ -1,4 +1,6 @@
-﻿namespace YetAnotherMifareTool.Utils
+﻿using System;
+
+namespace YetAnotherMifareTool.Utils
 {
     internal class CRC64
     {

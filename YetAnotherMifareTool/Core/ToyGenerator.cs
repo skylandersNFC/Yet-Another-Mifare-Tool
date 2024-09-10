@@ -1,4 +1,5 @@
-﻿using YetAnotherMifareTool.Utils;
+﻿using System;
+using YetAnotherMifareTool.Utils;
 
 namespace YetAnotherMifareTool.Core
 {
@@ -19,7 +20,7 @@ namespace YetAnotherMifareTool.Core
             byte[] data = new byte[1024];
 
             Buffer.BlockCopy(manufacturerBlock, 0, data, 0, manufacturerBlock.Length);
-             
+
 	        byte[] data_id = BitConverter.GetBytes(id);
             byte[] data_idExt = BitConverter.GetBytes(idExt);
 	        data[17] = data_id[1];

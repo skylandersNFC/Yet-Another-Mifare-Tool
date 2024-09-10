@@ -1,4 +1,6 @@
-﻿using YetAnotherMifareTool.Utils;
+﻿using System;
+using System.IO;
+using YetAnotherMifareTool.Utils;
 
 namespace YetAnotherMifareTool.Core
 {

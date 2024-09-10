@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace YetAnotherMifareTool.ACR
 {
@@ -61,7 +63,7 @@ namespace YetAnotherMifareTool.ACR
             var blockNumber = SectorToBlock(sector, 0);
 
             // only use location 0
-            byte location = 0; 
+            byte location = 0;
 
             // Load the key to the location
             var r = await TransceiveAsync(new LoadKeyCommand(key, location));

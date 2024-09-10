@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using YetAnotherMifareTool.Utils;
 
 namespace YetAnotherMifareTool.ACR
@@ -11,11 +15,11 @@ namespace YetAnotherMifareTool.ACR
 
         private const int BLOCK_SIZE = 16;
         private const int BLOCKS_PER_SECTOR = 4;
-        
+
         private int hContext;
         private string reader;
         private Card mCard;
-       
+
         public CardReader()
         {
             reader = GetReaders().FirstOrDefault();

@@ -1,4 +1,6 @@
-﻿namespace YetAnotherMifareTool.ACR
+﻿using System;
+
+namespace YetAnotherMifareTool.ACR
 {
     /// <summary>
     /// Mifare Standard Write commad when sent to the card, writes 16 bytes at a time

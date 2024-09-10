@@ -1,4 +1,7 @@
-﻿namespace YetAnotherMifareTool.Utils
+﻿using System;
+using System.Linq;
+
+namespace YetAnotherMifareTool.Utils
 {
     internal class Crypto
     {

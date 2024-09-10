@@ -1,4 +1,6 @@
-﻿namespace YetAnotherMifareTool.ACR
+﻿using System;
+
+namespace YetAnotherMifareTool.ACR
 {
     /// <summary>
     /// Mifare Standard GetHistoricalBytes command
