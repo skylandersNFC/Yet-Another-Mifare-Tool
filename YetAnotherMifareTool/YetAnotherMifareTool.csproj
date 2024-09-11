@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWindowsForms>true</UseWindowsForms>
+    <LangVersion>11</LangVersion>
 
     <Title>$(MSBuildProjectName)</Title>
     <Product>$(MSBuildProjectName)</Product>

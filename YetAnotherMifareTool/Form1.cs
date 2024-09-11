@@ -1,5 +1,6 @@
 using LibnfcSharp;
 using LibnfcSharp.Mifare;
+using LibnfcSharp.Mifare.Extensions;
 using LibnfcSharp.Mifare.Models;
 using System;
 using System.Linq;
@@ -50,14 +51,29 @@ namespace YetAnotherMifareTool
                         return;
                     }
 
-                    var hasUnlockedAccessConditions = mfc.HasUnlockedAccessConditions(0, out _);
+                    byte[] accessConditions;
+                    var hasUnlockedAccessConditionsInSectorZero = mfc.HasUnlockedAccessConditions(0, out accessConditions);
+
+                    Log($$"""
+
+
+                        UID: {{Convert.ToHexString(mfc.Uid)}}
+                        BCC: {{Convert.ToHexString(new[] { manufacturerInfo.Bcc })}}
+                        SAK: {{Convert.ToHexString(new[] { mfc.Sak })}} ({{Convert.ToHexString(new[] { manufacturerInfo.Sak })}})
+                        ATQA: {{Convert.ToHexString(mfc.Atqa)}} ({{Convert.ToHexString(manufacturerInfo.Atqa)}})
+                        ATS: {{(mfc.Ats.Length == 0 ? "-" : Convert.ToHexString(mfc.Ats))}}
+                        Type: {{mfc.MagicCardType.ToDescription()}}
+                        Access Conditions (Sector 0): {{Convert.ToHexString(accessConditions)}} ({{(hasUnlockedAccessConditionsInSectorZero ? "unlocked" : "locked")}})
+
+                        """);
+
                     var manufacturerBlockEquals = manufacturerInfo.RawData.SequenceEqual(_dumpFile.ManufacturerBlock);
 
                     Toy toyToWrite;
                     switch (mfc.MagicCardType)
                     {
                         case LibnfcSharp.Mifare.Enums.MifareMagicCardType.GEN_1:
-                            if (hasUnlockedAccessConditions)
+                            if (hasUnlockedAccessConditionsInSectorZero) // is sector 0 unlocked?
                             {
                                 if (manufacturerBlockEquals)
                                 {
@@ -94,7 +110,7 @@ namespace YetAnotherMifareTool
                             break;
 
                         case LibnfcSharp.Mifare.Enums.MifareMagicCardType.GEN_2:
-                            if (hasUnlockedAccessConditions)
+                            if (hasUnlockedAccessConditionsInSectorZero) // is sector 0 unlocked?
                             {
                                 toyToWrite = new ToyBuilder()
                                     .WithRecalculatedKeys()
