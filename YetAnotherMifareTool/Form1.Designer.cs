@@ -41,7 +41,7 @@ namespace YetAnotherMifareTool
             tabWrite.Location = new Point(4, 29);
             tabWrite.Name = "tabWrite";
             tabWrite.Padding = new Padding(3);
-            tabWrite.Size = new Size(634, 390);
+            tabWrite.Size = new Size(1019, 745);
             tabWrite.TabIndex = 1;
             tabWrite.Text = "Write";
             tabWrite.UseVisualStyleBackColor = true;
@@ -49,7 +49,7 @@ namespace YetAnotherMifareTool
             // btn_clearLog
             // 
             btn_clearLog.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btn_clearLog.Location = new Point(500, 63);
+            btn_clearLog.Location = new Point(885, 63);
             btn_clearLog.Name = "btn_clearLog";
             btn_clearLog.Size = new Size(120, 29);
             btn_clearLog.TabIndex = 6;
@@ -64,7 +64,7 @@ namespace YetAnotherMifareTool
             tb_logWrite.Multiline = true;
             tb_logWrite.Name = "tb_logWrite";
             tb_logWrite.ScrollBars = ScrollBars.Vertical;
-            tb_logWrite.Size = new Size(603, 272);
+            tb_logWrite.Size = new Size(988, 627);
             tb_logWrite.TabIndex = 5;
             tb_logWrite.TabStop = false;
             // 
@@ -74,7 +74,7 @@ namespace YetAnotherMifareTool
             btn_dumpWrite.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btn_dumpWrite.Location = new Point(17, 63);
             btn_dumpWrite.Name = "btn_dumpWrite";
-            btn_dumpWrite.Size = new Size(477, 29);
+            btn_dumpWrite.Size = new Size(862, 29);
             btn_dumpWrite.TabIndex = 4;
             btn_dumpWrite.Text = "WRITE DUMP";
             btn_dumpWrite.UseVisualStyleBackColor = true;
@@ -83,7 +83,7 @@ namespace YetAnotherMifareTool
             // btn_dumpSelect
             // 
             btn_dumpSelect.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btn_dumpSelect.Location = new Point(500, 24);
+            btn_dumpSelect.Location = new Point(885, 24);
             btn_dumpSelect.Name = "btn_dumpSelect";
             btn_dumpSelect.Size = new Size(120, 29);
             btn_dumpSelect.TabIndex = 3;
@@ -97,25 +97,25 @@ namespace YetAnotherMifareTool
             tb_dumpSelect.Location = new Point(17, 25);
             tb_dumpSelect.Name = "tb_dumpSelect";
             tb_dumpSelect.ReadOnly = true;
-            tb_dumpSelect.Size = new Size(477, 27);
+            tb_dumpSelect.Size = new Size(862, 27);
             tb_dumpSelect.TabIndex = 0;
             tb_dumpSelect.TabStop = false;
             // 
             // tabControl
             // 
+            tabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl.Controls.Add(tabWrite);
-            tabControl.Dock = DockStyle.Fill;
-            tabControl.Location = new Point(0, 0);
+            tabControl.Location = new Point(3, 3);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(642, 423);
+            tabControl.Size = new Size(1027, 778);
             tabControl.TabIndex = 0;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(642, 423);
+            ClientSize = new Size(1033, 784);
             Controls.Add(tabControl);
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
