@@ -37,11 +37,11 @@ namespace YetAnotherMifareTool
 
                     if (!mfc.SelectCard())
                     {
-                        Log("No Tag found!");
+                        Log("No card found!");
                         return;
                     }
 
-                    mfc.RegisterKeyAProviderCallback((sector, uid) => Crypto.CalculateKeyA(sector, uid));
+                    mfc.RegisterKeyAProviderCallback(Crypto.CalculateKeyA);
                     mfc.IdentifyMagicCardType();
 
                     ManufacturerInfo manufacturerInfo;
