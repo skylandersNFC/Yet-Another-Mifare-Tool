@@ -34,7 +34,7 @@ namespace YetAnotherMifareTool
 
                     mfc.InitialDevice();
 
-                    if (mfc.SelectCard())
+                    if (!mfc.SelectCard())
                     {
                         Log("No Tag found!");
                         return;
@@ -44,7 +44,7 @@ namespace YetAnotherMifareTool
                     mfc.IdentifyMagicCardType();
 
                     ManufacturerInfo manufacturerInfo;
-                    if (mfc.ReadManufacturerInfo(out manufacturerInfo))
+                    if (!mfc.ReadManufacturerInfo(out manufacturerInfo))
                     {
                         Log("Failed to read manufacturer block!");
                         return;
