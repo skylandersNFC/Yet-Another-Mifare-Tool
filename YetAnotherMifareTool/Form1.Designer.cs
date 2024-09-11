@@ -20,6 +20,7 @@ namespace YetAnotherMifareTool
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tabWrite = new TabPage();
             btn_clearLog = new Button();
             tb_logWrite = new TextBox();
@@ -117,10 +118,9 @@ namespace YetAnotherMifareTool
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1033, 784);
             Controls.Add(tabControl);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
-            MaximizeBox = false;
             Name = "Form1";
-            ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "YetAnotherMifareTool";
             tabWrite.ResumeLayout(false);
