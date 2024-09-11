@@ -40,7 +40,7 @@ jobs:
 
     # Publish
     - name: Publish
-      run: dotnet publish ${{github.workspace}}/${{env.project}} -o ${{github.workspace}} -c Release -f net6.0 -r win-x64 --no-self-contained --no-restore /p:PublishSingleFile=true
+      run: dotnet publish ${{github.workspace}}/${{env.project}} -o ${{github.workspace}} -c Release -f net6.0 -r win-x64 --no-self-contained --no-restore /p:PublishSingleFile=true /p:EnableWindowsTargeting=true
 
     # Upload artifacts
     - name: Upload build artifacts
