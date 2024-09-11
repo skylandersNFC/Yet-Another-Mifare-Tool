@@ -30,6 +30,8 @@ namespace YetAnotherMifareTool
                 using (var device = context.OpenDevice())
                 {
                     var mfc = new MifareClassic(device);
+                    mfc.RegisterLogCallback(Log);
+
                     mfc.InitialDevice();
 
                     if (mfc.SelectCard())
