@@ -1,4 +1,4 @@
-﻿namespace YetAnotherMifareTool.Core
+﻿namespace YetAnotherMifareTool.Models
 {
     internal class Toy
     {

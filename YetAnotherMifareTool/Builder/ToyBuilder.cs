@@ -1,9 +1,12 @@
-﻿using System;
+﻿using LibnfcSharp.Mifare;
+using LibnfcSharp.Mifare.Models;
+using System;
 using System.Linq;
 using YetAnotherMifareTool.Extensions;
+using YetAnotherMifareTool.Models;
 using YetAnotherMifareTool.Utils;
 
-namespace YetAnotherMifareTool.Core
+namespace YetAnotherMifareTool.Builder
 {
     internal class ToyBuilder
     {
@@ -64,8 +67,10 @@ namespace YetAnotherMifareTool.Core
             _toy.Data[30] = crcZero[0];
             _toy.Data[31] = crcZero[1];
 
-            if (_withRecalculatedKeys) _toy.Data = Magic.AddRecalculatedKeys(_toy.Data);
-            if (_withUnlockedAccessConditions) _toy.Data = Magic.UnlockedAccessConditions(_toy.Data);
+            var manufacturerInfo = new ManufacturerInfo(_toy.ManufacturerBlock);
+
+            if (_withRecalculatedKeys) _toy.Data = _toy.Data.RecalculateKeys(manufacturerInfo.Uid);
+            if (_withUnlockedAccessConditions) _toy.Data = _toy.Data.UnlockAccessConditions();
 
             return _toy;
         }
@@ -74,12 +79,14 @@ namespace YetAnotherMifareTool.Core
         {
             _toy.Data = dumpFile.Data.Take(1024).ToArray();
             _toy.Name = dumpFile.Name;
-            _toy.ManufacturerBlock = dumpFile.Data.Take(Constants.BLOCK_SIZE).ToArray();
+            _toy.ManufacturerBlock = dumpFile.Data.Take(MifareClassic.BLOCK_SIZE).ToArray();
             _toy.Id = dumpFile.Id;
             _toy.Variant = dumpFile.Variant;
 
-            if (_withRecalculatedKeys) _toy.Data = Magic.AddRecalculatedKeys(_toy.Data);
-            if (_withUnlockedAccessConditions) _toy.Data = Magic.UnlockedAccessConditions(_toy.Data);
+            var manufacturerInfo = new ManufacturerInfo(_toy.ManufacturerBlock);
+
+            if (_withRecalculatedKeys) _toy.Data = _toy.Data.RecalculateKeys(manufacturerInfo.Uid);
+            if (_withUnlockedAccessConditions) _toy.Data = _toy.Data.UnlockAccessConditions();
 
             return _toy;
         }

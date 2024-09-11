@@ -49,7 +49,7 @@ namespace YetAnotherMifareTool
             // btn_clearLog
             // 
             btn_clearLog.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btn_clearLog.Location = new Point(500, 60);
+            btn_clearLog.Location = new Point(500, 63);
             btn_clearLog.Name = "btn_clearLog";
             btn_clearLog.Size = new Size(120, 29);
             btn_clearLog.TabIndex = 6;
@@ -64,7 +64,7 @@ namespace YetAnotherMifareTool
             tb_logWrite.Multiline = true;
             tb_logWrite.Name = "tb_logWrite";
             tb_logWrite.ScrollBars = ScrollBars.Vertical;
-            tb_logWrite.Size = new Size(603, 275);
+            tb_logWrite.Size = new Size(603, 272);
             tb_logWrite.TabIndex = 5;
             tb_logWrite.TabStop = false;
             // 
@@ -72,7 +72,7 @@ namespace YetAnotherMifareTool
             // 
             btn_dumpWrite.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             btn_dumpWrite.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btn_dumpWrite.Location = new Point(17, 60);
+            btn_dumpWrite.Location = new Point(17, 63);
             btn_dumpWrite.Name = "btn_dumpWrite";
             btn_dumpWrite.Size = new Size(477, 29);
             btn_dumpWrite.TabIndex = 4;
@@ -122,8 +122,7 @@ namespace YetAnotherMifareTool
             Name = "Form1";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Yet Another Mifare Tool";
-            FormClosing += Form1_FormClosing;
+            Text = "YetAnotherMifareTool";
             tabWrite.ResumeLayout(false);
             tabWrite.PerformLayout();
             tabControl.ResumeLayout(false);
