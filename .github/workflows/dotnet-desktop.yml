@@ -2,7 +2,7 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ "master", "develop", "refactoring" ]
     tags:
       - 'v*'
 
