@@ -5,10 +5,10 @@ namespace YetAnotherMifareTool.Utils
 {
     internal class Crypto
     {
-        public static ushort ComputeCRC16(byte[] data)
+        public static ushort ComputeCRC16(byte[] data, int size)
         {
             ushort crc = 0xFFFF;
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < size; i++)
             {
                 crc ^= (ushort)(data[i] << 8);
                 for (int j = 0; j < 8; j++)

@@ -15,18 +15,18 @@ namespace YetAnotherMifareTool.Core
 	        };
         }
 
-        public static byte[] Generate(byte[] manufacturerBlock, uint id, uint idExt)
+        public static byte[] Generate(byte[] manufacturerBlock, uint id, uint variant)
         {
             byte[] data = new byte[1024];
 
             Buffer.BlockCopy(manufacturerBlock, 0, data, 0, manufacturerBlock.Length);
 
 	        byte[] data_id = BitConverter.GetBytes(id);
-            byte[] data_idExt = BitConverter.GetBytes(idExt);
+            byte[] data_variant = BitConverter.GetBytes(variant);
 	        data[17] = data_id[1];
 	        data[16] = data_id[0];
-	        data[29] = data_idExt[1];
-	        data[28] = data_idExt[0];
+	        data[29] = data_variant[1];
+	        data[28] = data_variant[0];
 	        byte[] checksumType = GetChecksumType0(data);
 	        data[30] = checksumType[0];
 	        data[31] = checksumType[1];

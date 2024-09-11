@@ -1,3 +1,6 @@
+using LibnfcSharp;
+using LibnfcSharp.Mifare;
+using LibnfcSharp.Mifare.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,19 +12,17 @@ namespace YetAnotherMifareTool
 {
     public partial class Form1 : Form
     {
-        private ToyFactory _toyFactory;
-        private Toy _toyToWrite;
+        private DumpFile _dumpFile;
+        private ToyReader _toyReader;
 
         public Form1()
         {
             InitializeComponent();
 
-            Text += ThisAssembly.Git.Tag.Equals(ThisAssembly.Git.BaseTag) && !string.IsNullOrEmpty(ThisAssembly.Git.Tag)
-                ? $" v{ThisAssembly.Git.SemVer.Major}.{ThisAssembly.Git.SemVer.Minor}.{ThisAssembly.Git.SemVer.Patch}{ThisAssembly.Git.SemVer.DashLabel}"
-                : $" ({ThisAssembly.Git.Commit})";
+            Text += $" v{ThisAssembly.Git.SemVer.Major}.{ThisAssembly.Git.SemVer.Minor}.{ThisAssembly.Git.SemVer.Patch}{ThisAssembly.Git.SemVer.DashLabel} [{ThisAssembly.Git.Commit}]";
 
-            _toyFactory = new ToyFactory();
-            _toyFactory.OnLogging += (sender, e) => Log(e);
+            _toyReader = new ToyReader();
+            _toyReader.OnLogging += (sender, e) => Log(e);
         }
 
         private void btn_dumpSelect_Click(object sender, EventArgs e)
@@ -37,17 +38,17 @@ namespace YetAnotherMifareTool
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                _toyToWrite = new Toy(ofd.FileName);
+                _dumpFile = new DumpFile(ofd.FileName);
 
-                if (_toyToWrite.IsDataValid)
+                if (_dumpFile.IsValid)
                 {
-                    tb_dumpSelect.Text = _toyToWrite.Name;
+                    tb_dumpSelect.Text = _dumpFile.FilePath;
 
-                    Log($"Loaded valid dump: {_toyToWrite.Name}");
+                    Log($"Loaded valid dump: {_dumpFile.FilePath}");
                 }
                 else
                 {
-                    _toyToWrite = null;
+                    _dumpFile = null;
                     tb_dumpSelect.Text = string.Empty;
 
                     Log("Dump is not valid!");
@@ -62,55 +63,121 @@ namespace YetAnotherMifareTool
 
         private void btn_dumpWrite_Click(object sender, EventArgs e)
         {
-            if (_toyToWrite == null)
+            if (_dumpFile == null)
             {
                 Log("No dump selected!");
             }
             else
-            if (_toyToWrite.IsDataValid)
+            if (_dumpFile.IsValid)
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    var uid = await _toyFactory.GetUid();
-                    if (uid == null)
-                    {
-                        Log("No Tag found!");
-                        return;
-                    }
-
-                    var manufacturerBlock = await _toyFactory.ReadManufacturerBlock();
-                    if (manufacturerBlock == null)
-                    {
-                        Log("Failed to read manufacturer block!");
-                        return;
-                    }
-
-                    var manufacturerBlockEquals = _toyToWrite.ManufacturerBlock.SequenceEqual(manufacturerBlock);
-                    var writeManufacturerBlock = cb_writeManufacturerBlock.Checked;
-                    byte[] data;
-
-                    if (!manufacturerBlockEquals && !writeManufacturerBlock)
-                    {
-                        data = ToyGenerator.Generate(manufacturerBlock, _toyToWrite.Id, _toyToWrite.IdExt);
-                    }
-                    else
-                    {
-                        data = _toyToWrite.Data
-                            .WithRecalculatedKeys()
-                            .WithUnlockedAccessConditions();
-                    }
-
-                    var keys = Magic.CalculateKeys(uid);
-
-                    await _toyFactory.Write(keys, data, writeManufacturerBlock);
-
-                }).ConfigureAwait(false);
+                    WriteDump();
+                });
             }
         }
 
         private void btn_clearLog_Click(object sender, EventArgs e)
         {
             tb_logWrite.Clear();
+        }
+
+        private void WriteDump()
+        {
+            try
+            {
+                using (var context = new NfcContext())
+                using (var device = context.OpenDevice())
+                {
+                    var mfc = new MifareClassic(device);
+                    mfc.InitialDevice();
+
+                    if (mfc.SelectCard())
+                    {
+                        Log("No Tag found!");
+                        return;
+                    }
+
+                    mfc.RegisterKeyAProviderCallback((sector, uid) => Crypto.CalculateKeyA(sector, uid));
+                    mfc.IdentifyMagicCardType();
+
+                    ManufacturerInfo manufacturerInfo;
+                    if (mfc.ReadManufacturerInfo(out manufacturerInfo))
+                    {
+                        Log("Failed to read manufacturer block!");
+                        return;
+                    }
+
+                    var hasUnlockedAccessConditions = mfc.HasUnlockedAccessConditions(0, out _);
+                    var manufacturerBlockEquals = manufacturerInfo.RawData.SequenceEqual(_dumpFile.ManufacturerBlock);
+
+                    Toy toyToWrite;
+                    switch (mfc.MagicCardType)
+                    {
+                        case LibnfcSharp.Mifare.Enums.MifareMagicCardType.GEN_1:
+                            if (hasUnlockedAccessConditions)
+                            {
+                                if (manufacturerBlockEquals)
+                                {
+                                    toyToWrite = new ToyBuilder()
+                                        .WithRecalculatedKeys()
+                                        .WithUnlockedAccessConditions()
+                                        .BuildFromDumpFile(_dumpFile);
+                                }
+                                else
+                                {
+                                    toyToWrite = new ToyBuilder()
+                                        .WithManufacturerBlock(manufacturerInfo.RawData)
+                                        .WithId(_dumpFile.Id)
+                                        .WithVariant(_dumpFile.Variant)
+                                        .WithRecalculatedKeys()
+                                        .WithUnlockedAccessConditions()
+                                        .BuildFromScratch();
+                                }
+                            }
+                            else
+                            {
+                                Log("Error: Uid is locked! Sector 0 is locked (by access conditions)! Use another card...");
+                                return;
+                            }
+                            break;
+
+
+                        case LibnfcSharp.Mifare.Enums.MifareMagicCardType.GEN_1A:
+                        case LibnfcSharp.Mifare.Enums.MifareMagicCardType.GEN_1B:
+                            toyToWrite = new ToyBuilder()
+                                .WithRecalculatedKeys()
+                                .WithUnlockedAccessConditions()
+                                .BuildFromDumpFile(_dumpFile);
+                            break;
+
+                        case LibnfcSharp.Mifare.Enums.MifareMagicCardType.GEN_2:
+                            if (hasUnlockedAccessConditions)
+                            {
+                                toyToWrite = new ToyBuilder()
+                                    .WithRecalculatedKeys()
+                                    .WithUnlockedAccessConditions()
+                                    .BuildFromDumpFile(_dumpFile);
+                            }
+                            else
+                            {
+                                Log("Error: Sector 0 is locked (by access conditions). Use another card...");
+                                return;
+                            }
+                            break;
+
+                        default:
+                            toyToWrite = null;
+                            break;
+                    }
+
+                    //mfc.Write(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.ToString());
+            }
         }
 
         private void Log(string message)
@@ -130,8 +197,7 @@ namespace YetAnotherMifareTool
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _toyFactory?.Dispose();
+            _toyReader?.Dispose();
         }
-
     }
 }

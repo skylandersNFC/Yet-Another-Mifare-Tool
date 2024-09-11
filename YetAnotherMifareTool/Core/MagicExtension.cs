@@ -2,7 +2,7 @@
 
 namespace YetAnotherMifareTool.Core
 {
-    public static class MagicExtension
+    internal static class MagicExtension
     {
         public static byte[] WithResetting(this byte[] data, bool useResetting = true)
         {

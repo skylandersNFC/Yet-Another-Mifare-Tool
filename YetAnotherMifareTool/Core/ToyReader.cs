@@ -4,13 +4,13 @@ using YetAnotherMifareTool.ACR;
 
 namespace YetAnotherMifareTool.Core
 {
-    public class ToyFactory : IDisposable
+    public class ToyReader : IDisposable
     {
         private CardReader _cardReader;
 
         public event EventHandler<string> OnLogging;
 
-        public ToyFactory()
+        public ToyReader()
         {
             _cardReader = new CardReader();
 
