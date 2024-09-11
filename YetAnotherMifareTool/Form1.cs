@@ -54,18 +54,15 @@ namespace YetAnotherMifareTool
                     byte[] accessConditions;
                     var hasUnlockedAccessConditionsInSectorZero = mfc.HasUnlockedAccessConditions(0, out accessConditions);
 
-                    Log($$"""
-
-
-                        UID: {{Convert.ToHexString(mfc.Uid)}}
-                        BCC: {{Convert.ToHexString(new[] { manufacturerInfo.Bcc })}}
-                        SAK: {{Convert.ToHexString(new[] { mfc.Sak })}} ({{Convert.ToHexString(new[] { manufacturerInfo.Sak })}})
-                        ATQA: {{Convert.ToHexString(mfc.Atqa)}} ({{Convert.ToHexString(manufacturerInfo.Atqa)}})
-                        ATS: {{(mfc.Ats.Length == 0 ? "-" : Convert.ToHexString(mfc.Ats))}}
-                        Type: {{mfc.MagicCardType.ToDescription()}}
-                        Access Conditions (Sector 0): {{Convert.ToHexString(accessConditions)}} ({{(hasUnlockedAccessConditionsInSectorZero ? "unlocked" : "locked")}})
-
-                        """);
+                    Log($"{Environment.NewLine}" +
+                        $"{Environment.NewLine}" +
+                        $"UID:  {Convert.ToHexString(mfc.Uid)}{Environment.NewLine}" +
+                        $"BCC:  {Convert.ToHexString(new[] {manufacturerInfo.Bcc})}{Environment.NewLine}" +
+                        $"SAK:  {Convert.ToHexString(new[] {mfc.Sak})} ({Convert.ToHexString(new[] {manufacturerInfo.Sak})}){Environment.NewLine}" +
+                        $"ATQA: {Convert.ToHexString(mfc.Atqa)} ({Convert.ToHexString(manufacturerInfo.Atqa)}){Environment.NewLine}" +
+                        $"ATS:  {(mfc.Ats.Length == 0 ? "-" : Convert.ToHexString(mfc.Ats))}{Environment.NewLine}" +
+                        $"Type: {mfc.MagicCardType.ToDescription()}{Environment.NewLine}" +
+                        $"Access Conditions (Sector 0): {Convert.ToHexString(accessConditions)} ({(hasUnlockedAccessConditionsInSectorZero ? "unlocked" : "locked")}){Environment.NewLine}");
 
                     var manufacturerBlockEquals = manufacturerInfo.RawData.SequenceEqual(_dumpFile.ManufacturerBlock);
 
