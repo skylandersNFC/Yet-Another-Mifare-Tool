@@ -83,6 +83,7 @@ namespace YetAnotherMifareTool
                                         .BuildFromDumpFile(_dumpFile);
                                 }
                                 else
+                                if (!_dumpFile.HasSignature) // will only work for toys without signature
                                 {
                                     toyToWrite = new ToyBuilder()
                                         .WithManufacturerBlock(manufacturerInfo.RawData)
@@ -92,10 +93,15 @@ namespace YetAnotherMifareTool
                                         .WithUnlockedAccessConditions()
                                         .BuildFromScratch();
                                 }
+                                else
+                                {
+                                    Log("Error: Unable to write toys with signature to Gen1 UID LOCKED cards. Use a toy without signature or another card...");
+                                    return;
+                                }
                             }
                             else
                             {
-                                Log("Error: Uid is locked! Sector 0 is locked (by access conditions)! Use another card...");
+                                Log("Error: Uid is locked and sector 0 is locked (by access conditions)! Use another card...");
                                 return;
                             }
                             break;
@@ -112,7 +118,7 @@ namespace YetAnotherMifareTool
                         case LibnfcSharp.Mifare.Enums.MifareMagicCardType.GEN_2:
                             if (hasUnlockedAccessConditionsInSectorZero) // is sector 0 unlocked?
                             {
-                                // same as previous toy (manufacturerBlockEquals) or unused Gen 2 card (unlocked acs in all sectors)
+                                // same as previous toy (manufacturerBlockEquals) or unused Gen2 CUID card (unlocked acs in all sectors)
                                 if (manufacturerBlockEquals || mfc.HasUnlockedAccessConditions(1, out _))
                                 {
                                     toyToWrite = new ToyBuilder()
@@ -133,7 +139,7 @@ namespace YetAnotherMifareTool
                                 }
                                 else
                                 {
-                                    Log("Error: Unable to write toys with signature to a used Gen2 card. Use a toy without signature or another card...");
+                                    Log("Error: Unable to write toys with signature to used Gen2 CUID cards. Use a toy without signature or another card...");
                                     return;
                                 }
                             }
