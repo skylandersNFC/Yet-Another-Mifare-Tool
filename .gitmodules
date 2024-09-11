@@ -1,0 +1,4 @@
+[submodule "LibnfcSharp"]
+	path = LibnfcSharp
+	url = https://github.com/MirakelDev/LibnfcSharp.git
+	branch = master
