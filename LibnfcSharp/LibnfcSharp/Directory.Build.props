@@ -1,0 +1,4 @@
+<Project>
+  <!-- To be redefined by GitInfo after restore. -->
+  <Target Name="GitVersion" />
+</Project>
