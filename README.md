@@ -129,7 +129,7 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
  - **Error: Failed to read manufacturer block!**
 > [!NOTE]
-> If you're using a **Mifare S50 1k** card, there may be an issue with the **current one**. Try another card from the batch.
+> If you're using a **Mifare S50 1k** cards, there may be an issue with the **current card**. Try another one from the batch.
 
 ---
 
@@ -147,4 +147,4 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
  - **No dump selected!**
 > [!NOTE]
-> Select a dump file from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**
+> Select a dump file from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
