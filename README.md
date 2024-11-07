@@ -129,4 +129,22 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
  - **Error: Failed to read manufacturer block!**
 > [!NOTE]
-> It looks like there's an issue with your cards. You might be using an NTAG card, which isn’t compatible with Skylanders, or your MIFARE Classic card may have incorrect data written to it, causing it not to be recognized.
+> If you're using a **Mifare S50 1k** card, there may be an issue with the **current one**. Try another card from the batch.
+
+---
+
+ - **Error: No card found!**
+> [!NOTE]
+> Place a **Mifare S50 1k** card on the reader.
+
+---
+
+ - **Dump is not valid!**
+> [!NOTE]
+> Use the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
+
+---
+
+ - **No dump selected!**
+> [!NOTE]
+> Select a dump file from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**
