@@ -124,3 +124,9 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
  - **Error: Unknown magic card type. Use another card...**
 > [!NOTE]
 > You need **Mifare S50 1k** cards. **NTAG** or other cards are **not compatible**.
+
+---
+
+ - **Error: Failed to read manufacturer block!**
+> [!NOTE]
+> It looks like there's an issue with your cards. You might be using an NTAG card, which isn’t compatible with Skylanders, or your MIFARE Classic card may have incorrect data written to it, causing it not to be recognized.
