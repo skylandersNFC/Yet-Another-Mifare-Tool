@@ -148,3 +148,9 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
  - **No dump selected!**
 > [!NOTE]
 > Select a dump file from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
+
+---
+
+ - **You must install .NET Desktop Runtime to run this application.**
+> [!NOTE]
+> Download and install **[.NET Desktop Runtime 6.0.36](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)**.
