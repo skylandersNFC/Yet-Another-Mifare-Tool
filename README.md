@@ -151,6 +151,10 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
 ---
 
- - **You must install .NET Desktop Runtime to run this application.**
+ - **You must install .NET Runtime to run this application.**
 > [!NOTE]
-> Download and install **[.NET Desktop Runtime 6.0.36](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)**.
+> Download and install **[.NET Runtime 6.0.36](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)**.
+> 
+> Here are the direct links: **[.NET Runtime 6.0.36 x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-6.0.36-windows-x64-installer)** and **[.NET Runtime 6.0.36 x86](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-6.0.36-windows-x86-installer)**. Install both just in case.
+> 
+> If you are still having problems, install; this as well : **[Visual C++ Redistributable Runtimes All-in-One](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/)**
