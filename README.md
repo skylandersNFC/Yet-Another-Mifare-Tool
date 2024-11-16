@@ -159,4 +159,4 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 > 
 > If you are still having problems, install this as well: **[Visual C++ Redistributable Runtimes All-in-One](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/)**
 >
-> Extract it and run "install_all.bat".
+> Extract the zip archive and run the included "install_all.bat" with admin privileges (right click, "Run as administrator").
