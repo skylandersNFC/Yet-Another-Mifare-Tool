@@ -136,9 +136,12 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
  - **Error: Authenticating sector 1 failed!**
 > [!NOTE]
 > It seems you have a **Mifare Classic S50 1K UID Locked** card and previously used another software to write data to it.
-> Since this data wasn't aligned with the card's fixed UID, it's incorrect now.
-> As a result, from Sector 1 onward, the data cannot be decoded due to mismatched Access Control keys.
-> You’ll need to use a new, untouched card.
+> 
+> Since this data **wasn't aligned** with the card's fixed UID, it's **incorrect** now.
+> 
+> As a result, from Sector 1 onward, the data **cannot be decoded** due to **mismatched Access Control keys**.
+> 
+> You’ll need to **use a new, untouched card**.
 
 ---
 
