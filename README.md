@@ -25,8 +25,8 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 3. **That's it!** The software manages all the technical details, so you don’t have to worry about a thing.
 
 ## Screenshots
-![YetAnotherMifareTool_Gen1a](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/blob/main/docs/images/yamt_1.jpg)
-![YetAnotherMifareTool_Gen1a_Bottom](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/blob/main/docs/images/yamt_2.jpg)
+![YetAnotherMifareTool_Gen1a](https://raw.githubusercontent.com/skylandersNFC/Yet-Another-Mifare-Tool/refs/heads/main/docs/images/yamt_1.jpg)
+![YetAnotherMifareTool_Gen1a_Bottom](https://raw.githubusercontent.com/skylandersNFC/Yet-Another-Mifare-Tool/refs/heads/main/docs/images/yamt_2.jpg)
 
 ## Technical Details
 
