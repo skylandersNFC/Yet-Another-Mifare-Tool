@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461;net45</TargetFrameworks>
+
+    <Title>$(MSBuildProjectName)</Title>
+    <Product>$(MSBuildProjectName)</Product>
+    <Description>Mifare extension of LibnfcSharp</Description>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitInfo" Version="3.3.5" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Target Name="PopulateInfo" DependsOnTargets="GitVersion" BeforeTargets="GetAssemblyVersion;GenerateNuspec;GetPackageContents">
+    <PropertyGroup>
+      <Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</Version>
+      <InformationalVersion>$(Version)$(GitSemVerDashLabel)-$(GitBranch)+$(GitCommit) $(GitCommitDate)</InformationalVersion>
+    </PropertyGroup>
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LibnfcSharp\LibnfcSharp.csproj" />
+  </ItemGroup>
+
+</Project>
