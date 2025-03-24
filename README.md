@@ -110,7 +110,7 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
  - **Error: Unable to write toys with signature to Gen1 UID LOCKED cards. Use a toy without signature or another card...**
 > [!NOTE]
-> You **cannot** write **Imaginators** to **Gen1 UID-locked** cards. Please use **Gen1 UID re-writable** or **blank Gen2** cards instead.
+> You **cannot** write **Imaginators** to **Gen1 UID Locked** cards. Please use **Gen1A UID Unlocked/Re-Writable** or **blank Gen2** cards instead.
 
 ---
 
