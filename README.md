@@ -52,6 +52,14 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 > This issue occurs **randomly**, usually with the **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** and roughly once every **10-20 writes**. Occasionally, the driver misbehaves, which seems to stem from the original libnfc implementation.
 >
 > However, it's **far less frequent** compared to how often the **MWT crashed**. Simply **relaunching** the **YAMT** application should **resolve** this issue.
+>
+> If the problem persists, you can try the initial release of **[YAMT 1.0.0](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases/tag/v1.0.0)**, as several users have reported more stable behavior with this version, when encountering such crashes.
+
+---
+
+ - **YAMT is showing "Error: Writing block XX failed!"**
+> [!NOTE]
+> Try using the "**Reset**" option first before writing to the card. This can help with certain problematic cards, hence avoiding this issue.
 
 ---
 
