@@ -1,5 +1,27 @@
 # Yet Another Mifare Tool (YAMT)
 
+## How To Use
+
+1. Download the corect **[Yet-Another-Mifare-Tool-XXXX.zip](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases)** archive for you device  and **extract it**.
+   
+> [!CAUTION]
+> It seems like younger folks these days **have no clue** how to **extract** archives.
+> 
+> **Double-clicking** an archive **won’t extract jack**, it just opens it in Windows Explorer’s built-in viewer.
+> 
+> Running YAMT from there **won’t work as well**, because the software **isn’t actually extracted**.
+>
+> And NO, **dragging only the .exe** to your desktop **won’t do the trick either**, it’s **missing** the other two essential **.dll** files.
+> 
+> For the **love of all that is good**, just **right-click the damn archive and extract it** like a proper human being.
+>
+> Only then, once you have the **.exe and both .dll files** in the same folder, **run it**, for god's sake.
+
+2. Place a **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Cards/)** card onto your **[ACR122U](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#acr122u-all-skylanders)** or **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** NFC device.
+3. Run "**Yet-Another-Mifare-Tool-XXXX.exe**" as **Admin** and use "**Select dumps...**" to select a Skylander dump from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
+4. Simply click "**WRITE DUMP**" and wait for it to finish.
+5. **That's it!** The software manages all the technical details, so you don’t have to worry about a thing.
+
 ## Overview
 
 **Yet Another Mifare Tool (YAMT)** supports **[ACR122U](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#acr122u-all-skylanders)** and **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** NFC devices.
@@ -16,13 +38,9 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
 ![todd-howard-it-just-works](https://media1.tenor.com/m/rkI1a8s2Z6QAAAAC/todd-howard-it-just-works.gif)
 
-## How To Use
+## Is Yet Another Mifare Tool (YAMT) better than Mifare Windows Tool (MWT) for Skylanders?
 
-1. Download the corect **[Yet-Another-Mifare-Tool-XXXX.zip](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases)** archive for you device  and **extract it**.
-2. Place a **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Cards/)** card onto your **[ACR122U](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#acr122u-all-skylanders)** or **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** NFC device.
-2. Run "**Yet-Another-Mifare-Tool-XXXX.exe**" as **Admin** and use "**Select dumps...**" to select a Skylander dump from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
-3. Simply click "**WRITE DUMP**" and wait for it to finish.
-3. **That's it!** The software manages all the technical details, so you don’t have to worry about a thing.
+![Much Better](https://media1.tenor.com/m/fvCLHApzwu4AAAAC/much-better-guy.gif)
 
 ## Screenshots
 ![YetAnotherMifareTool_Gen1a](https://raw.githubusercontent.com/skylandersNFC/Yet-Another-Mifare-Tool/refs/heads/main/docs/images/yamt_1.jpg)
@@ -40,10 +58,6 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
 - For **Gen2 CUID** cards that are **empty**, YAMT operates similarly to Gen1 UID Locked cards, but includes the ability to **change the UID** (which allows them to be **used for Imaginators**).
      - However, Gen2 cards **cannot be re-written with another Imaginator** (_once **written**_), but can be **rewritten** with **any other Skylander**.
-
-## Is Yet Another Mifare Tool (YAMT) better than Mifare Windows Tool (MWT) for Skylanders?
-
-![Much Better](https://media1.tenor.com/m/fvCLHApzwu4AAAAC/much-better-guy.gif)
 
 ## Errors Explained
 
