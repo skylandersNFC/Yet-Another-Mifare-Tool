@@ -11,7 +11,7 @@
 > 
 > Running YAMT from there **won’t work as well**, because the software **isn’t actually extracted**.
 >
-> And NO, **dragging only the .exe** to your desktop **won’t do the trick either**, it’s **missing** the other two essential **.dll** files.
+> And NO, **dragging only the .exe** to your desktop **won’t do the trick either**, it’s **missing** the other two **.dll** files.
 > 
 > For the **love of all that is good**, just **right-click the damn archive and extract it** like a proper human being.
 >
