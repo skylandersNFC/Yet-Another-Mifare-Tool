@@ -2,7 +2,7 @@
 
 ## How To Use
 
-1. Download the corect **[Yet-Another-Mifare-Tool-XXXX.zip](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases)** archive for you device  and **extract it**.
+1. Download the correct **[Yet-Another-Mifare-Tool-XXXX.zip](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases)** archive for you device  and **extract it**.
    
 > [!CAUTION]
 > It seems like younger folks these days **have no clue** how to **extract** archives.
@@ -13,9 +13,9 @@
 >
 > And NO, **dragging only the .exe** to your desktop **won’t do the trick either**, it’s **missing** the other two **.dll** files.
 > 
-> For the **love of all that is good**, just **right-click the damn archive and extract it** like a proper human being.
+> Just **right-click the archive and extract it**.
 >
-> Only then, once you have the **.exe and both .dll files** in the same folder, **run it**, for god's sake.
+> Only then, once you have the **.exe and both .dll files** in the same folder, **run it**.
 
 2. Place a **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Cards/)** card onto your **[ACR122U](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#acr122u-all-skylanders)** or **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** NFC device.
 3. Run "**Yet-Another-Mifare-Tool-XXXX.exe**" as **Admin** and use "**Select dumps...**" to select a Skylander dump from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
