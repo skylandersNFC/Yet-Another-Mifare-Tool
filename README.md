@@ -1,5 +1,27 @@
 # Yet Another Mifare Tool (YAMT)
 
+## How To Use
+
+1. Download the correct **[Yet-Another-Mifare-Tool-XXXX.zip](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases)** archive for you device  and **extract it**.
+   
+> [!CAUTION]
+> It seems like younger folks these days **have no clue** how to **extract** archives.
+> 
+> **Double-clicking** an archive **won’t extract jack**, it just opens it in Windows Explorer’s built-in viewer.
+> 
+> Running YAMT from there **won’t work as well**, because the software **isn’t actually extracted**.
+>
+> And NO, **dragging only the .exe** to your desktop **won’t do the trick either**, it’s **missing** the other two **.dll** files.
+> 
+> Just **right-click the archive and extract it**.
+>
+> Only then, once you have the **.exe and both .dll files** in the same folder, **run it**.
+
+2. Place a **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Cards/)** card onto your **[ACR122U](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#acr122u-all-skylanders)** or **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** NFC device.
+3. Run "**Yet-Another-Mifare-Tool-XXXX.exe**" as **Admin** and use "**Select dumps...**" to select a Skylander dump from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
+4. Simply click "**WRITE DUMP**" and wait for it to finish.
+5. **That's it!** The software manages all the technical details, so you don’t have to worry about a thing.
+
 ## Overview
 
 **Yet Another Mifare Tool (YAMT)** supports **[ACR122U](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#acr122u-all-skylanders)** and **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** NFC devices.
@@ -16,13 +38,9 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
 ![todd-howard-it-just-works](https://media1.tenor.com/m/rkI1a8s2Z6QAAAAC/todd-howard-it-just-works.gif)
 
-## How To Use
+## Is Yet Another Mifare Tool (YAMT) better than Mifare Windows Tool (MWT) for Skylanders?
 
-1. Download the corect **[Yet-Another-Mifare-Tool-XXXX.zip](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases)** archive for you device  and **extract it**.
-2. Place a **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Cards/)** card onto your **[ACR122U](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#acr122u-all-skylanders)** or **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** NFC device.
-2. Run the "**Yet-Another-Mifare-Tool-XXXX.exe**" and use "**Select dumps...**" to select a Skylander dump from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
-3. Simply click "**WRITE DUMP**" and wait for it to finish.
-3. **That's it!** The software manages all the technical details, so you don’t have to worry about a thing.
+![Much Better](https://media1.tenor.com/m/fvCLHApzwu4AAAAC/much-better-guy.gif)
 
 ## Screenshots
 ![Gen1A_Start](./screenshots/YAMT_Gen1A_1.png)
@@ -41,10 +59,6 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 - For **Gen2 CUID** cards that are **empty**, YAMT operates similarly to Gen1 UID Locked cards, but includes the ability to **change the UID** (which allows them to be **used for Imaginators**).
      - However, Gen2 cards **cannot be re-written with another Imaginator** (_once **written**_), but can be **rewritten** with **any other Skylander**.
 
-## Is Yet Another Mifare Tool (YAMT) better than Mifare Windows Tool (MWT) for Skylanders?
-
-![Much Better](https://media1.tenor.com/m/fvCLHApzwu4AAAAC/much-better-guy.gif)
-
 ## Errors Explained
 
  - **YAMT crashed before writing the dump, closing the application automatically**
@@ -52,6 +66,14 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 > This issue occurs **randomly**, usually with the **[PN532 V2.0](https://skylandersnfc.github.io/Docs/Skylanders_Buying_List/Skylanders_NFC_Devices/#pn532-v20-all-skylanders)** and roughly once every **10-20 writes**. Occasionally, the driver misbehaves, which seems to stem from the original libnfc implementation.
 >
 > However, it's **far less frequent** compared to how often the **MWT crashed**. Simply **relaunching** the **YAMT** application should **resolve** this issue.
+>
+> If the problem persists, you can try the initial release of **[YAMT 1.0.0](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases/tag/v1.0.0)**, as several users have reported more stable behavior with this version, when encountering such crashes.
+
+---
+
+ - **YAMT is showing "Error: Writing block XX failed!"**
+> [!NOTE]
+> Try using the "**Reset**" option first before writing to the card. This can help with certain problematic cards, hence avoiding this issue.
 
 ---
 
@@ -102,7 +124,7 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
  - **Error: Unable to write toys with signature to Gen1 UID LOCKED cards. Use a toy without signature or another card...**
 > [!NOTE]
-> You **cannot** write **Imaginators** to **Gen1 UID-locked** cards. Please use **Gen1 UID re-writable** or **blank Gen2** cards instead.
+> You **cannot** write **Imaginators** to **Gen1 UID Locked** cards. Please use **Gen1A UID Unlocked/Re-Writable** or **blank Gen2** cards instead.
 
 ---
 
@@ -124,3 +146,51 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
  - **Error: Unknown magic card type. Use another card...**
 > [!NOTE]
 > You need **Mifare S50 1k** cards. **NTAG** or other cards are **not compatible**.
+
+---
+
+ - **Error: Failed to read manufacturer block!**
+> [!NOTE]
+> If you're using a **Mifare S50 1k** cards, there may be an issue with the **current card**. Try another one from the batch.
+
+---
+
+ - **Error: Authenticating sector 1 failed!**
+> [!NOTE]
+> It seems you have a **Mifare Classic S50 1K UID Locked** card and previously used another software to write data to it.
+> 
+> Since this data **wasn't aligned** with the card's fixed UID, it's **incorrect** now.
+> 
+> As a result, from Sector 1 onward, the data **cannot be decoded** due to **mismatched Access Control keys**.
+> 
+> You’ll need to **use a new, untouched card**.
+
+---
+
+ - **Error: No card found!**
+> [!NOTE]
+> Place a **Mifare S50 1k** card on the reader.
+
+---
+
+ - **Dump is not valid!**
+> [!NOTE]
+> Use the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
+
+---
+
+ - **No dump selected!**
+> [!NOTE]
+> Select a dump file from the **[Ultimate NFC Pack](https://skylandersnfc.github.io/Skylanders-Ultimate-NFC-Pack/)**.
+
+---
+
+ - **You must install .NET Runtime to run this application.**
+> [!NOTE]
+> Download and install **[.NET Runtime 6.0.36](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)**.
+> 
+> You can also use these direct links: **[.NET Runtime 6.0.36 x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-6.0.36-windows-x64-installer)** and **[.NET Runtime 6.0.36 x86](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-6.0.36-windows-x86-installer)**. Install both just in case.
+> 
+> If you are still having problems, install this as well: **[Visual C++ Redistributable Runtimes All-in-One](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/)**
+>
+> Extract the zip archive and run the included "install_all.bat" with admin privileges (right click, "Run as administrator").
