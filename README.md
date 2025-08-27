@@ -1,7 +1,7 @@
 # Yet Another Mifare Tool (YAMT)
 
 ## V1.4.0 - Update pending...
-The curent instructions are for V1.3.0
+The current instructions are for V1.3.0
 
 ## How To Use
 
