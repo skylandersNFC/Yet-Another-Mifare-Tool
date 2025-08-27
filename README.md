@@ -77,7 +77,7 @@ You can write to **[Mifare S50 1K](https://skylandersnfc.github.io/Docs/Skylande
 
 ---
 
- - **System.Exception: Error opening NFC reader**
+ - **System.Exception: Error opening NFC reader** (NEW Failed to connect to NFC reader.)
 > [!NOTE]
 > Please **connect** your **ACR122U** or **PN532 V2.0** NFC device. Ensure that you've downloaded the correct archive for your NFC device.
 > 
