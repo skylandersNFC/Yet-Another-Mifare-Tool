@@ -1,5 +1,8 @@
 # Yet Another Mifare Tool (YAMT)
 
+## V1.4.0 - Update pending...
+The curent instructions are for V1.3.0
+
 ## How To Use
 
 1. Download the correct **[Yet-Another-Mifare-Tool-XXXX.zip](https://github.com/skylandersNFC/Yet-Another-Mifare-Tool/releases)** archive for you device  and **extract it**.
